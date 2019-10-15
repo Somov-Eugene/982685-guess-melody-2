@@ -1,7 +1,7 @@
 # Учебный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Евгений Сомов](https://up.htmlacademy.ru/react/2/user/982685).
-* Наставник: `Неизвестно`.
+* Наставник: [Артем Брилев](https://htmlacademy.ru/profile/id1126425).
 
 ---
 
