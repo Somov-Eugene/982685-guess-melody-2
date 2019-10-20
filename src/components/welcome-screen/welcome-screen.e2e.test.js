@@ -8,10 +8,14 @@ Enzyme.configure({adapter: new Adapter()});
 describe(`Проверка <WelcomeScreen>`, () => {
   it(`нажата кнопка СТАРТ`, () => {
     const handleClick = jest.fn();
-    const tree = shallow(<WelcomeScreen gameTime = {5} errorsCount = {3} onClickStartButton = {handleClick} />);
-    const welcomeButton = tree.find(`.welcome__button`);
+    const welcomeScreen = shallow(<WelcomeScreen
+      gameTime = {5}
+      errorsCount = {3}
+      onClickStartButton = {handleClick}
+    />);
+    const startButton = welcomeScreen.find(`.welcome__button`);
 
-    welcomeButton.simulate(`click`);
+    startButton.simulate(`click`);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
