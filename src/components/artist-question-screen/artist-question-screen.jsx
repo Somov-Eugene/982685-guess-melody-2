@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ArtistQuestionScreen = ({screenIndex, question, onAnswer}) => {
-  const {
-    answers
-  } = question;
+const ArtistQuestionScreen = (props) => {
+  const {screenIndex, question, onAnswer} = props;
+  const {answers} = question;
 
   // style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"
   const timerStyle = {
@@ -71,7 +70,19 @@ const ArtistQuestionScreen = ({screenIndex, question, onAnswer}) => {
 
 ArtistQuestionScreen.propTypes = {
   screenIndex: PropTypes.number.isRequired,
-  question: PropTypes.arrayOf().isRequired,
+  question: PropTypes.shape({
+    type: PropTypes.oneOf([`artist`]).isRequired,
+    song: PropTypes.shape({
+      artist: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired
+    }).isRequired,
+    answers: PropTypes.arrayOf(
+        PropTypes.shape({
+          picture: PropTypes.string.isRequired,
+          artist: PropTypes.string.isRequired
+        }).isRequired
+    ).isRequired
+  }).isRequired,
   onAnswer: PropTypes.func.isRequired
 };
 
