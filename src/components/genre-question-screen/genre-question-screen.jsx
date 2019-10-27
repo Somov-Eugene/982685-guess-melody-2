@@ -9,9 +9,9 @@ const GenreQuestionScreen = ({screenIndex, question, onAnswer}) => {
 
   // style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"
   const timerStyle = {
-    filter: 'url(#blur)',
-    transform: 'rotate(-90deg) scaleY(-1)',
-    transformOrigin: 'center'
+    filter: `url(#blur)`,
+    transform: `rotate(-90deg) scaleY(-1)`,
+    transformOrigin: `center`
   };
 
   return (
