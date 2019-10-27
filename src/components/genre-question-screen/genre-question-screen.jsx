@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GenreQuestionScreen = ({screenIndex, question, onAnswer}) => {
-  const {
-    answers,
-    genre,
-  } = question;
+const GenreQuestionScreen = (props) => {
+  const {screenIndex, question, onAnswer} = props;
+  const {genre, answers} = question;
 
   // style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"
   const timerStyle = {
@@ -71,7 +69,16 @@ const GenreQuestionScreen = ({screenIndex, question, onAnswer}) => {
 
 GenreQuestionScreen.propTypes = {
   screenIndex: PropTypes.number.isRequired,
-  question: PropTypes.arrayOf().isRequired,
+  question: PropTypes.shape({
+    type: PropTypes.oneOf([`genre`]).isRequired,
+    genre: PropTypes.oneOf([`jazz`, `blues`, `pop`, `rock`, `folk`]),
+    answers: PropTypes.arrayOf(
+        PropTypes.shape({
+          src: PropTypes.string.isRequired,
+          genre: PropTypes.oneOf([`jazz`, `blues`, `pop`, `rock`, `folk`])
+        }).isRequired
+    ).isRequired,
+  }).isRequired,
   onAnswer: PropTypes.func.isRequired
 };
 
