@@ -60,7 +60,6 @@ class App extends React.PureComponent {
         const isEnd = (nextIndex >= questions.length);
 
         return {
-          prevState,
           question: !isEnd ? nextIndex : -1,
         };
       });
