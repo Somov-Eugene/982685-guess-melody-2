@@ -1,85 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GenreQuestionScreen = (props) => {
-  const {screenIndex, question, onAnswer} = props;
-  const {genre, answers} = question;
+import AudioPlayer from '../audio-player/audio-player.jsx';
+class GenreQuestionScreen extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  // style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"
-  const timerStyle = {
-    filter: `url(#blur)`,
-    transform: `rotate(-90deg) scaleY(-1)`,
-    transformOrigin: `center`
-  };
+    this.state = {
+      activePlayer: -1,
+    };
+  }
 
-  return (
-    <section className="game game--genre">
-      <header className="game__header">
-        <a className="game__back" href="#">
-          <span className="visually-hidden">Сыграть ещё раз</span>
-          <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
-        </a>
+  render() {
+    const {question, onAnswer} = this.props;
+    const {answers, genre} = question;
 
-        <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
-          <circle className="timer__line" cx="390" cy="390" r="370" style={timerStyle} />
-        </svg>
-
-        <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
-          <span className="timer__mins">05</span>
-          <span className="timer__dots">:</span>
-          <span className="timer__secs">00</span>
-        </div>
-
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
-      </header>
-
+    return (
       <section className="game__screen">
         <h2 className="game__title">Выберите {genre} треки</h2>
-
         <form className="game__tracks" onSubmit={(evt) => {
           evt.preventDefault();
           onAnswer();
         }}>
-          {
-            answers.map((it, i) => {
-              return (
-                <div className="track" key={`${screenIndex}-answer-${i}`}>
-                  <button className="track__button track__button--play" type="button" />
-                  <div className="track__status">
-                    <audio></audio>
-                  </div>
-                  <div className="game__answer">
-                    <input className="game__input visually-hidden" type="checkbox" name="answer" id={`answer-${i}`} value={it.genre} />
-                    <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
-                  </div>
-                </div>
-              );
-            })
-          }
+          {answers.map((it, i) => <div className="track" key={`answer-${i}`}>
+            <AudioPlayer
+              src={it.src}
+              isPlaying={i === this.state.activePlayer}
+              onPlayButtonClick={() => this.setState({
+                activePlayer: this.state.activePlayer === i ? -1 : i
+              })}
+            />
+            <div className="game__answer">
+              <input className="game__input visually-hidden" type="checkbox" name="answer" id={`answer-${i}`} value={it.genre} />
+              <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
+            </div>
+          </div>)}
+
           <button className="game__submit button" type="submit">Ответить</button>
         </form>
       </section>
-    </section>
-  );
-};
+    );
+  }
+}
 
 GenreQuestionScreen.propTypes = {
-  screenIndex: PropTypes.number.isRequired,
+  onAnswer: PropTypes.func.isRequired,
   question: PropTypes.shape({
-    type: PropTypes.oneOf([`genre`]).isRequired,
-    genre: PropTypes.oneOf([`jazz`, `blues`, `pop`, `rock`, `folk`]),
-    answers: PropTypes.arrayOf(
-        PropTypes.shape({
-          src: PropTypes.string.isRequired,
-          genre: PropTypes.oneOf([`jazz`, `blues`, `pop`, `rock`, `folk`])
-        }).isRequired
-    ).isRequired,
+    answers: PropTypes.arrayOf(PropTypes.shape({
+      src: PropTypes.string.isRequired,
+      genre: PropTypes.oneOf([`rock`, `jazz`, `blues`, `pop`]).isRequired,
+    })).isRequired,
+    genre: PropTypes.oneOf([`rock`, `jazz`, `blues`, `pop`]).isRequired,
+    type: PropTypes.oneOf([`genre`, `artist`]).isRequired,
   }).isRequired,
-  onAnswer: PropTypes.func.isRequired
 };
 
 export default GenreQuestionScreen;
