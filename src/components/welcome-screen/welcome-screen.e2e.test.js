@@ -1,7 +1,8 @@
-import React from "react";
-import Enzyme, {shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import WelcomeScreen from "./welcome-screen";
+import React from 'react';
+import Enzyme, {shallow} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+import WelcomeScreen from './welcome-screen';
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -10,14 +11,12 @@ describe(`Проверка <WelcomeScreen>`, () => {
     const handlerClick = jest.fn();
 
     const welcomeScreen = shallow(<WelcomeScreen
-      time = {5}
       errorCount = {3}
-      onStartButtonClick = {handlerClick}
+      gameTime = {5}
+      onClick = {handlerClick}
     />);
 
-    const startButton = welcomeScreen.find(`.welcome__button`);
-
-    startButton.simulate(`click`);
+    welcomeScreen.find(`.welcome__button`).simulate(`click`);
     expect(handlerClick).toHaveBeenCalledTimes(1);
   });
 });

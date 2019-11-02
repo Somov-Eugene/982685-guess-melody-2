@@ -3,19 +3,22 @@ import renderer from 'react-test-renderer';
 
 import questions from '../../mocks/questions';
 import createNodeMock from '../../mocks/test-utility';
-import GenreQuestionScreen from './genre-question-screen';
+import AudioPlayer from './audio-player';
 
-describe(`Проверка <GenreQuestionScreen>`, () => {
-  it(`компонент <GenreQuestionScreen> корректно отрисован`, () => {
+describe(`Проверка <AudioPlayer>`, () => {
+  it(`компонент <AudioPlayer> корректно отрисован`, () => {
     const question = 0;
     const currentQuestion = questions[question];
-    const handleAnswer = jest.fn();
+    const src = currentQuestion.answers[0].src;
+
+    const handleClick = jest.fn();
     const options = {createNodeMock};
 
     const tree = renderer
-      .create(<GenreQuestionScreen
-        question = {currentQuestion}
-        onAnswer = {handleAnswer}
+      .create(<AudioPlayer
+        src = {src}
+        isPlaying = {false}
+        onPlayButtonClick = {handleClick}
       />, options)
       .toJSON();
 

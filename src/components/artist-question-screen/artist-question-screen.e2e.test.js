@@ -11,17 +11,16 @@ describe(`Проверка <ArtistQuestionScreen>`, () => {
   it(`пользователь выбрал вариант ответа`, () => {
     const question = 1;
     const currentQuestion = questions[question];
-    const handlerAnswer = jest.fn();
+    const handleAnswer = jest.fn();
 
     const artistQuestion = shallow(<ArtistQuestionScreen
-      screenIndex = {question}
       question = {currentQuestion}
-      onAnswer = {handlerAnswer}
+      onAnswer = {handleAnswer}
     />);
 
     const form = artistQuestion.find(`.game__artist`);
     form.simulate(`change`);
 
-    expect(handlerAnswer).toHaveBeenCalledTimes(1);
+    expect(handleAnswer).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,21 +1,22 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import ArtistQuestionScreen from './artist-question-screen';
 import questions from '../../mocks/questions';
+import createNodeMock from '../../mocks/test-utility';
+import ArtistQuestionScreen from './artist-question-screen';
 
 describe(`Проверка <ArtistQuestionScreen>`, () => {
   it(`компонент <ArtistQuestionScreen> корректно отрисован`, () => {
     const question = 1;
     const currentQuestion = questions[question];
-    const handlerClick = jest.fn();
+    const handleAnswer = jest.fn();
+    const options = {createNodeMock};
 
     const tree = renderer
       .create(<ArtistQuestionScreen
-        screenIndex = {question}
         question = {currentQuestion}
-        onAnswer = {handlerClick}
-      />)
+        onAnswer = {handleAnswer}
+      />, options)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

@@ -1,6 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import WelcomeScreen from "./welcome-screen";
+import React from 'react';
+import renderer from 'react-test-renderer';
+
+import WelcomeScreen from './welcome-screen';
 
 describe(`Проверка <WelcomeScreen>`, () => {
   it(`компонент <WelcomeScreen> корректно отрисован`, () => {
@@ -8,9 +9,9 @@ describe(`Проверка <WelcomeScreen>`, () => {
 
     const tree = renderer
       .create(<WelcomeScreen
-        time = {5}
         errorCount = {3}
-        onStartButtonClick = {handlerClick} />)
+        gameTime = {5}
+        onClick = {handlerClick} />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
