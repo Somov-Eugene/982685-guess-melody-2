@@ -2,17 +2,8 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import questions from '../../mocks/questions';
+import createNodeMock from '../../mocks/test-utility';
 import AudioPlayer from './audio-player';
-
-function createNodeMock(element) {
-  if (element.type === `audio`) {
-    return {
-      createRef() {}
-    };
-  }
-
-  return null;
-}
 
 describe(`Проверка <AudioPlayer>`, () => {
   it(`компонент <AudioPlayer> корректно отрисован`, () => {
